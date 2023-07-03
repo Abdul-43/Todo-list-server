@@ -62,9 +62,9 @@ app.get('/todo/complete/:id', async (req, res) => {
       return res.status(404).json({ error: 'Todo not found' });
     }
 
-    console.log('Before completion:', todo.complete);
+
     todo.complete = !todo.complete;
-    console.log('After completion:', todo.complete);
+
 
     await todo.save();
     res.json(todo);
