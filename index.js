@@ -7,17 +7,26 @@ import Todo from './models/Todo.js';
 dotenv.config();
 
 const app = express();
-const PORT=8000;
+const PORT = 8000;
 
 app.use(express.json());
 app.use(cors());
 
-await mongoose.connect(process.env.MONGO_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-  .then(() => console.log("Connected to db"))
-  .catch((error) => console.error("Connection to db failed:", error));
+const connect = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      family: 4,
+    })
+    console.log('MongoDb connected 💫')
+  }
+  catch (err) {
+    console.log(err)
+  }
+}
+
+connect();
 
 app.get('/todos', async (req, res) => {
   try {
@@ -64,8 +73,7 @@ app.get('/todo/complete/:id', async (req, res) => {
 
 
     todo.complete = !todo.complete;
-
-
+    
     await todo.save();
     res.json(todo);
   } catch (error) {
@@ -74,4 +82,4 @@ app.get('/todo/complete/:id', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => console.log("Server started on port",PORT));
+app.listen(PORT, () => console.log("Server started on port", PORT));

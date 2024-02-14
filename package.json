@@ -11,7 +11,7 @@
     "ToDoList",
     "MERN"
   ],
-  "author": "Pragadeesh S",
+  "author": "abdul",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
